@@ -1,0 +1,95 @@
+# Checks every pull request, then builds and optionally deploys the catalog from main.
+# Setup steps are in README.md.
+name: Catalog
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+env:
+  NODE_VERSION: '24'
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get the catalog
+        uses: actions/checkout@v4
+        with:
+          path: catalog
+          persist-credentials: false
+
+      - name: Get DomainCatalog
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ vars.DOMAINCATALOG_REPO }}
+          ref: ${{ vars.DOMAINCATALOG_REF || 'main' }}
+          token: ${{ secrets.DOMAINCATALOG_TOKEN }}
+          path: tool
+          persist-credentials: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install DomainCatalog
+        run: npm ci --omit=dev --no-audit --no-fund
+        working-directory: tool
+
+      - name: Check references
+        run: node tool/src/cli.mjs check --dir catalog
+
+      - name: Lint
+        run: node tool/src/cli.mjs lint --dir catalog
+
+      - name: Run architecture rules
+        run: node tool/src/cli.mjs rules --dir catalog
+
+      - name: Get the target branch
+        if: github.event_name == 'pull_request'
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
+          path: base
+          persist-credentials: false
+
+      # Compares this pull request with its target branch, using gates.yaml.
+      - name: Apply gates
+        if: github.event_name == 'pull_request'
+        run: |
+          node tool/src/cli.mjs snapshot create --dir base
+          node tool/src/cli.mjs gate --dir catalog --base "$(ls base/.domaincatalog/snapshots/*.snapshot.json | tail -n 1)"
+
+      - name: Build the site
+        run: node tool/src/cli.mjs build --dir catalog
+
+      - name: Keep the built site
+        if: github.event_name == 'push'
+        uses: actions/upload-artifact@v4
+        with:
+          name: catalog-site
+          path: catalog/dist
+          # The site includes .well-known/api-catalog.
+          include-hidden-files: true
+          if-no-files-found: error
+
+  deploy:
+    needs: check
+    if: github.event_name == 'push' && vars.CATALOG_DEPLOY == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: catalog-site
+          path: site
+
+      - name: Deploy
+        run: bash deploy.sh site
