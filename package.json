@@ -1,0 +1,37 @@
+{
+  "name": "domaincatalog",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Docs-as-code architecture catalog: domains, systems, services, messages, schemas and flows.",
+  "type": "module",
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=22.23.4"
+  },
+  "bin": {
+    "domaincatalog": "./src/cli.mjs"
+  },
+  "exports": {
+    ".": "./src/index.mjs",
+    "./sdk": "./src/sdk.mjs"
+  },
+  "scripts": {
+    "build:example": "node src/cli.mjs build --dir examples/harbor",
+    "dev:example": "node src/cli.mjs dev --dir examples/harbor",
+    "mcp:example": "node src/cli.mjs mcp --dir examples/harbor",
+    "example": "node scripts/create-example.mjs",
+    "test": "node --no-warnings --test test/*.test.mjs"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.20.0",
+    "elkjs": "^0.10.0",
+    "fs-extra": "^11.3.0",
+    "gray-matter": "^4.0.3",
+    "highlight.js": "^11.11.1",
+    "js-yaml": "^4.1.0",
+    "marked": "^15.0.0",
+    "mermaid": "^12.3.0",
+    "semver": "^7.7.0",
+    "zod": "^4.6.7"
+  }
+}
