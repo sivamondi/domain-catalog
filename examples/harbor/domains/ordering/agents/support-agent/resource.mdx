@@ -1,0 +1,25 @@
+---
+name: Support Agent
+id: support-agent
+version: 1.0.0
+summary: Answers customer questions about their orders.
+ownedBy:
+  - ordering-team
+publishes:
+  - id: get-order-status
+consumes:
+  - id: order-shipped-notice
+tools:
+  - name: lookup_order
+    description: Finds an order by its number
+  - name: draft_reply
+    description: Prepares a reply for a person to approve
+---
+
+## Overview
+
+Handles first-line support, and hands anything unusual to a person.
+
+<ToolList />
+
+<Neighborhood />

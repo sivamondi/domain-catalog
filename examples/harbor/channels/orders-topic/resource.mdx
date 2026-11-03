@@ -1,0 +1,25 @@
+---
+name: Orders Topic
+id: orders-topic
+version: 1.0.0
+summary: Kafka topic for the order lifecycle.
+ownedBy:
+  - ordering-team
+address: 'harbor.orders.{region}'
+protocols:
+  - kafka
+deliveryGuarantee: at-least-once
+parameters:
+  region:
+    description: Which region the order belongs to
+    enum:
+      - uk
+      - eu
+    default: uk
+---
+
+## Overview
+
+<ChannelDetails />
+
+<Neighborhood />

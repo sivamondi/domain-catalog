@@ -1,0 +1,30 @@
+---
+name: Payments
+id: payments
+version: 1.0.0
+summary: Charges customers and handles refunds.
+ownedBy:
+  - payments-team
+services:
+  - id: payment-service
+---
+
+## Overview
+
+Charges customers and handles refunds.
+
+```mermaid
+stateDiagram-v2
+  [*] --> Requested
+  Requested --> Captured: card accepted
+  Requested --> Declined: card refused
+  Captured --> Refunded: refund issued
+```
+
+## Architecture
+
+<Neighborhood />
+
+## Messages
+
+<MessageList />

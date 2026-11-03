@@ -1,0 +1,27 @@
+---
+name: Payment Service
+id: payment-service
+version: 1.0.0
+summary: Talks to the card provider and records outcomes.
+ownedBy:
+  - payments-team
+publishes:
+  - id: payment-captured
+  - id: payment-declined
+consumes:
+  - id: take-payment
+writes:
+  - id: payments-db
+---
+
+## Overview
+
+Talks to the card provider and records outcomes.
+
+## Messages
+
+<MessageList />
+
+## Architecture
+
+<Neighborhood />

@@ -1,0 +1,6 @@
+dist
+dist.next*
+.domaincatalog
+catalog.html
+catalog.md
+catalog.json

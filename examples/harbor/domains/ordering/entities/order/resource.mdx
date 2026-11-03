@@ -1,0 +1,29 @@
+---
+name: Order
+id: order
+version: 1.0.0
+summary: One purchase by one customer.
+ownedBy:
+  - ordering-team
+identifier: orderId
+properties:
+  - name: orderId
+    type: UUID
+    required: true
+    description: The order number
+  - name: customerId
+    type: string
+    required: true
+    description: Who placed it
+    refersTo: customer
+  - name: status
+    type: string
+    required: true
+    description: Where it has got to
+---
+
+## Overview
+
+<EntityFields />
+
+<EntityRelations id="ordering" />

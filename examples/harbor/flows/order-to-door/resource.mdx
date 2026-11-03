@@ -1,0 +1,74 @@
+---
+name: Order to Door
+id: order-to-door
+version: 1.0.0
+summary: 'One order, from the website to the customer''s door.'
+ownedBy:
+  - ordering-team
+steps:
+  - id: customer
+    title: Customer
+    actor:
+      name: Customer
+    next:
+      id: place
+      label: Checks out
+  - id: place
+    title: Place Order
+    message:
+      id: place-order
+    next:
+      id: orders
+      label: Sent to
+  - id: orders
+    title: Order Service
+    service:
+      id: order-service
+    next:
+      id: pay
+      label: Requests payment
+  - id: pay
+    title: Take Payment
+    message:
+      id: take-payment
+    next:
+      - id: captured
+        label: Accepted
+      - id: declined
+        label: Refused
+  - id: declined
+    title: Payment Declined
+    message:
+      id: payment-declined
+  - id: captured
+    title: Payment Captured
+    message:
+      id: payment-captured
+    next:
+      id: roast
+      label: Triggers
+  - id: roast
+    title: Roast Planner
+    service:
+      id: roast-planner
+    next:
+      id: ship
+      label: When roasted
+  - id: ship
+    title: Shipping Service
+    service:
+      id: shipping-service
+    next:
+      id: door
+      label: Delivers
+  - id: door
+    title: Delivered
+    actor:
+      name: Customer
+---
+
+## Overview
+
+The journey most orders take.
+
+<FlowMap />

@@ -1,0 +1,44 @@
+---
+name: Order Service
+id: order-service
+version: 1.0.0
+summary: Accepts orders and owns their lifecycle.
+ownedBy:
+  - ordering-team
+publishes:
+  - id: order-shipped-notice
+  - id: take-payment
+  - id: order-placed
+    to:
+      - id: orders-topic
+consumes:
+  - id: place-order
+  - id: get-order-status
+  - id: payment-captured
+  - id: parcel-shipped
+writes:
+  - id: orders-db
+reads:
+  - id: orders-db
+entities:
+  - id: order
+repository:
+  url: 'https://git.harbor.example/shop/order-service'
+  language: TypeScript
+specs:
+  - type: openapi
+    path: openapi.yml
+    name: Order API
+---
+
+## Overview
+
+Accepts orders and owns their lifecycle.
+
+## Messages
+
+<MessageList />
+
+## Architecture
+
+<Neighborhood />

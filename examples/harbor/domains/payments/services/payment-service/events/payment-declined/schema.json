@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "description": "The card provider refused the payment.",
+  "required": [
+    "orderId",
+    "reason"
+  ],
+  "properties": {
+    "orderId": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The order number"
+    },
+    "reason": {
+      "type": "string",
+      "enum": [
+        "insufficient_funds",
+        "expired_card",
+        "other"
+      ]
+    }
+  }
+}

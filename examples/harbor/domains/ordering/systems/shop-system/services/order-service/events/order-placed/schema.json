@@ -1,0 +1,51 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "description": "Published when a customer places an order.",
+  "required": [
+    "orderId",
+    "total",
+    "currency",
+    "customerId"
+  ],
+  "properties": {
+    "orderId": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The order number"
+    },
+    "customerId": {
+      "type": "string",
+      "description": "Who placed the order"
+    },
+    "total": {
+      "type": "integer",
+      "description": "Total in pence"
+    },
+    "currency": {
+      "type": "string",
+      "enum": [
+        "GBP",
+        "EUR"
+      ]
+    },
+    "items": {
+      "type": "array",
+      "description": "What was ordered",
+      "items": {
+        "type": "object",
+        "required": [
+          "sku"
+        ],
+        "properties": {
+          "sku": {
+            "type": "string"
+          },
+          "grams": {
+            "type": "integer"
+          }
+        }
+      }
+    }
+  }
+}

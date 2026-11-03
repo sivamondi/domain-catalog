@@ -1,0 +1,29 @@
+openapi: 3.0.3
+info:
+  title: Order API
+  version: 1.0.0
+  description: Places orders and reports their status.
+paths:
+  /orders:
+    post:
+      operationId: placeOrder
+      summary: Place an order
+      responses:
+        '202':
+          description: Order accepted
+  /orders/{orderId}:
+    get:
+      operationId: getOrderStatus
+      summary: Get an order's status
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          description: The order number
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The order
+        '404':
+          description: No such order

@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "description": "The card provider accepted the payment.",
+  "required": [
+    "orderId",
+    "paymentId"
+  ],
+  "properties": {
+    "orderId": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The order number"
+    },
+    "paymentId": {
+      "type": "string"
+    }
+  }
+}

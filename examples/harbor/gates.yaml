@@ -1,0 +1,8 @@
+gates:
+  - id: no-breaking-schemas
+    when: schema_breaking
+    severity: error
+    message: Breaking schema change
+  - id: announce-new-consumers
+    when: consumer_added
+    severity: warn

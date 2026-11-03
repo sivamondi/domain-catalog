@@ -1,0 +1,24 @@
+---
+name: Publish events through an outbox
+id: adr-001-transactional-outbox
+version: 1.0.0
+summary: Events are written with the order and then relayed.
+status: accepted
+ownedBy:
+  - ordering-team
+concerns:
+  - id: order-service
+    type: service
+---
+
+## Context
+
+An order must never be saved without its event being published.
+
+## Decision
+
+The {{service:order-service}} writes events to an outbox table in the same transaction.
+
+## Consequences
+
+Consumers may see duplicates, so they must be idempotent.

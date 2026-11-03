@@ -1,0 +1,38 @@
+---
+name: Ordering
+id: ordering
+version: 1.0.0
+summary: Takes orders from the shop and follows them to the door.
+ownedBy:
+  - ordering-team
+systems:
+  - id: shop-system
+agents:
+  - id: support-agent
+entities:
+  - id: order
+  - id: customer
+flows:
+  - id: order-to-door
+---
+
+## Overview
+
+Takes orders from the shop and follows them to the door.
+
+<Cards cols={2}>
+  <Card title="The order journey" description="Follow one order end to end." href="/maps/flows/order-to-door/1.0.0/" />
+  <Card title="Why an outbox?" description="Read the decision record." href="/catalog/adrs/adr-001-transactional-outbox/" />
+</Cards>
+
+:::tip Start here
+The {{service:order-service}} is the best place to begin. It publishes {{event:order-placed}}.
+:::
+
+## Architecture
+
+<Neighborhood />
+
+## Messages
+
+<MessageList />

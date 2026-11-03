@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "description": "Tells customers their parcel is on its way.",
+  "required": [
+    "orderId"
+  ],
+  "properties": {
+    "orderId": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The order number"
+    },
+    "trackingUrl": {
+      "type": "string",
+      "format": "uri"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "description": "Asks the Order Service to create an order.",
+  "required": [
+    "customerId",
+    "basketId"
+  ],
+  "properties": {
+    "customerId": {
+      "type": "string"
+    },
+    "basketId": {
+      "type": "string"
+    }
+  }
+}
